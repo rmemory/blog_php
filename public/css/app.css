@@ -38,7 +38,6 @@ h6,
 /*
  * Masthead for nav
  */
- 
 
 .blog-masthead {
   background-color: #428bca;
@@ -54,10 +53,6 @@ h6,
   padding: 10px;
   font-weight: 500;
   color: #cdddeb;
-}
-
-.my-right-justify {
-  text-align: right;
 }
 
 .blog-nav-item:hover,
@@ -182,3 +177,4 @@ h6,
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
+
