@@ -17,6 +17,7 @@ directly return a view, but as we shall see below, a better idea is to
 use controllers to return the view.
 
 Route::get('/', function() {
+  // returns the view in resoures/views/welcome.blade.php
   return view('welcome');
 });
 
@@ -96,6 +97,9 @@ DB_PASSWORD=
 You can then use these commands to create the migration file and table in
 the database:
 
+$ php artisan // to display overall help
+$ php artisan help make:migration // for specific help
+
 $ php artisan make:migration create_tasks_table --create=tasks\
 $ php artisan migrate
 
@@ -158,7 +162,8 @@ Route::get('/', function () {
   return view('welcome', compact('tasks'));
 });
 
-Here is a slight adjustment in the loop to look for the 'body'
+Here is a slight adjustment in the loop to look for the 'body', because "tasks"
+from the database are a collection of objects, not some string
 
 <ul>
   @foreach ($tasks as $task)
@@ -169,10 +174,11 @@ Here is a slight adjustment in the loop to look for the 'body'
 Here we look for an ID in the path, and look for that ID in the database,
 
 Route::get('/tasks/{id}', function ($id) {
-    // The query builder way
+    // Here is the usual query builder way
     //$task = DB::table('tasks')->find($id);
 
-    // The eloquent way (The "active record" implementation)
+    // The "eloquent" way (The "active record" implementation), where
+    // App\Task is a model class extended from Eloquent
     $task = App\Task::find($id);
 
     // This looks for a view called tasks/show.blade.php
@@ -377,3 +383,10 @@ Route::post('/posts', 'PostsController@store');
   The combination of request type (method) and path determines what action
   to take.
   */
+
+/*
+Route for adding comments
+
+$php artisan make:controller CommentsController
+*/
+Route::post('/posts/{post}/comments', 'CommentsController@store');

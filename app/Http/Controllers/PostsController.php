@@ -66,6 +66,7 @@ class PostsController extends Controller
       to the show method.
     */
     public function show(Post $post) {
+      // return dd(var_dump($post));
       return view('posts.show', compact('post'));
       // return view("posts.show");
     }
@@ -80,6 +81,8 @@ class PostsController extends Controller
           "title" => "My title"
           "body" => "The body"
         ]
+
+        The token above comes from csrf_field()
 
         request('title') gives just the title
         request('body') gives just the body
@@ -130,7 +133,7 @@ class PostsController extends Controller
         membership status is changed.
 
         One quick way to avoid the MassAssignmentException is to modify the
-        model class to have the following field:
+        model class (not the controller!!!) to have the following field:
 
         protected $fillable = ['title', 'body'];
 
@@ -153,6 +156,14 @@ class PostsController extends Controller
           'title' => request('title'),
           'body' => request('body')
         ]);
+
+        or just this:
+
+        Post::create([request('title', 'body')]);
+
+        Note that using HTML 5 validation when possible is also good. For example,
+
+        <input type="text" class="form-control" id="title" name="title" required>
       */
 
       // Save it to the Database
