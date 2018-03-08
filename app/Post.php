@@ -44,6 +44,11 @@ class Post extends Model {
     return $this->hasMany(Comment::class);
   }
 
+  // $comment->post->user
+  public function user() {
+    return $this->belongsTo(User::class);
+  }
+
   public function addComment($body) {
     /*
       The long way
@@ -56,5 +61,7 @@ class Post extends Model {
     // Shorter way using eloquent
     $this->comments()->create(['body' => $body]);
   }
+
+
 
 }

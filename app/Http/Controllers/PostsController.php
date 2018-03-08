@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
+
+  public function __construct() {
+    // You must be signed in to create a post
+    $this->middleware('auth')->except(['index', 'show']);
+  }
+
   /*
     Show all of the Posts
 
@@ -101,7 +107,7 @@ class PostsController extends Controller
 
       $post->title = request('title');
       $post->body = request('body');
-
+      $post->user_id = auth()->user()->id;
         /*
         Because each model object is extended from Eloquent,
         it also provides a create method, which will do the
