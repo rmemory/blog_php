@@ -55,6 +55,10 @@ h6,
   color: #cdddeb;
 }
 
+.my-right-justify {
+  text-align: right;
+}
+
 .blog-nav-item:hover,
 .blog-nav-item:focus {
   color: #fff;
@@ -177,4 +181,3 @@ h6,
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
-

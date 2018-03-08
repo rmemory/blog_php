@@ -312,7 +312,7 @@ $ php artisan tinker
   gets whatever data from the database via the model and Eloquent, and performs
   a save (migration)
 */
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('home');
 
 /*
   Display the page to create a post (hence the get and not a post)
@@ -390,3 +390,8 @@ Route for adding comments
 $php artisan make:controller CommentsController
 */
 Route::post('/posts/{post}/comments', 'CommentsController@store');
+
+Route::get('/register', 'RegistrationController@create');
+Route::post('/register', 'RegistrationController@store');
+Route::get('/login', 'SessionsController@create');
+Route::post('/logout', 'SessionsController@destroy');
