@@ -6,9 +6,10 @@
       <a class="blog-nav-item" href="#">Press</a>
       <a class="blog-nav-item" href="#">New hires</a>
       <a class="blog-nav-item" href="#">About</a>
-      <div class="my-right-justify">
-        <a class="blog-nav-item" href="#">Jane Doe</a>
-      </div>
+
+      @if (Auth::check())
+        <a class="blog-nav-item pull-right" href="#">{{ Auth::user()->name }}</a>
+      @endif
     </nav>
   </div>
 </div>
