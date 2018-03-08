@@ -7,6 +7,25 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
+To use this project, you will need PHP 7.1, Laravel 5.6, node.js, npm, and composer installed on your machine, along with an HTTP server and a database. For my testing, I used Apache and MYSQL on my local machine. These topics are beyond the scope of this readme. Assuming those are available, after this repo has been cloned, you can restore the necessary Larvel vendor and other directories with the the following:
+
+(only if necessary)
+
+```
+npm install --global cross-env 
+rm -rf node_modules
+rm package-lock.json
+npm cache clear --force
+npm install
+```
+
+And then these commands ...
+
+```
+composer install (not update, unless you overwrite the composor.lock)
+npm run dev
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
