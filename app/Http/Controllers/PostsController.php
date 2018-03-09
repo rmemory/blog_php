@@ -34,9 +34,43 @@ class PostsController extends Controller
     public function index() {
       // ordered newest to oldest
       // $posts = Post::latest()->get();
-      $posts = Post::orderBy('created_at', 'desc')->get();
+      // Here is the long way
+      // $posts = Post::orderBy('created_at', 'desc')->get();
+      $posts = Post::orderBy('created_at', 'desc');
 
-      return view('posts.index', compact('posts'));
+      // Example: http://blog.local/?month=March&year=2018
+      /*
+        Note at the bottom of app/config/app.php I added this:
+
+        'Carbon' => 'Carbon\Carbon',
+      */
+      if ($month = request('month')) {
+        $posts->whereMonth('created_at', \Carbon::parse($month)->month); // Carbon used to translate from March -> 3, etc
+      }
+
+      if ($year = request('year')) {
+        $posts->whereYear('created_at', $year);
+      }
+
+      $posts = $posts->get();
+
+      /*
+        Instead of the above, I could use a query scope.
+
+        $posts = Post::latest()->filter(request(['month', 'year']))->get();
+
+        See Posts model class for the scopeFilter query scope method.
+      */
+
+      // do the query for archives
+      // Temporary
+      $archives = Post::selectRaw('year(created_at) as year, monthname(created_at) as month, count(*) as published')
+        ->groupBy('year', 'month')
+        ->orderByRaw('min(created_at) desc')
+        ->get()
+        ->toArray();
+
+      return view('posts.index', compact('posts', 'archives'));
     }
 
     /*
