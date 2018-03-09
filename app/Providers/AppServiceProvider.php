@@ -4,8 +4,26 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+/*
+  To see how the AppServiceProvider is constructed, see config/app.php, 'providers'.
+
+  Notice this:
+
+  App\Providers\AppServiceProvider::class,
+*/
+
 class AppServiceProvider extends ServiceProvider
 {
+    /*
+      If we weren't doing "boot" below, and only "register,ing", we could do
+      this:
+
+      protected $defer = true;
+
+      The defer mechanism tells laravel that this class isn't necessarily
+      needed on every page load (ie. demand loading only), only loaded when
+      its requested. That said, the presence of boot means defer can't be used.
+    */
     /**
      * Bootstrap any application services.
      *
@@ -34,6 +52,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        /*
+        \App::singleton('App\Billing\Stripe' function($app) {
+          // See the config/services.php file, stripe, secret
+          return new \App\Billing\Stripe('services.stripe.secret');
+        });
+        */
     }
 }

@@ -1,6 +1,41 @@
 <?php
 
 /*
+  Bind or register class into the service container, one time. Typically
+  we don't put this in the routes file like this. Typically it belongs in
+  the app/Providers/AppServiceProvider.php, register method.
+
+App::bind('App\Billing\Stripe' function() {
+  // See the config/services.php file, stripe, secret
+  return new \App\Billing\Stripe('services.stripe.secret');
+});
+
+When we say App::bind (or App::singleton, or equivalent) its a "key value"
+situation. Meaning, 'App\Billing\Stripe' is the key, and 'function()' is the
+value.
+
+*/
+
+/*
+  There are two ways for the user to access the objects in the service
+  container. Anywhere else in the code can call this:
+
+  $stripe = App::make('App\Billing\Stripe');
+
+  or
+
+  $stripe = resolve('App\Billing\Stripe');
+
+  Note that when using App::bind() as shown above, it will create a brand
+  new object each time. To create just a single class do this:
+
+  App::singleton();
+
+  Alternatively App::instance('App\Billing\Stripe', $stripe) allows us to replace the
+  Stripe object in the service container with one we just created.
+*/
+
+/*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
