@@ -98,4 +98,20 @@ class Post extends Model {
       ->get()
       ->toArray();
   }
+
+  public function tags() {
+    // 1 post many have many tags
+    // Also, any tag may be applied to many posts.
+    // Thus it is a many to many relationship.
+    return $this->belongsToMany(Tag::class);
+
+    /*
+      The above allows us to do this for example to get all of the tag names:
+      $post->tags->pluck('name');
+
+      or this to get all tags associated with this post:
+      $post->tags;
+    */
+
+  }
 }
