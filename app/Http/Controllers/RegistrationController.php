@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegistrationRequest;
 
 class RegistrationController extends Controller
 {
@@ -15,28 +16,39 @@ class RegistrationController extends Controller
       }
     }
 
-    public function store() {
+    public function store(RegistrationRequest $request) {
       // Validate incoming data
-      $this->validate(request(), [
-        'name' => 'required',
-        'email' => 'required|email',
-        /*
-          Note the "confirmed" validation requires an associated
-          _confirmation input form
-        */
-        'password' => 'required|confirmed'
-      ]);
+      /*
+      Move this to the Requests/RegistrationRequest.php, rules() file and method
+      */
+      // $this->validate(request(), [
+      //   'name' => 'required',
+      //   'email' => 'required|email',
+      //   /*
+      //     Note the "confirmed" validation requires an associated
+      //     _confirmation input form
+      //   */
+      //   'password' => 'required|confirmed'
+      // ]);
 
-      $name = request('name');
-      $email = request('email');
-      $password = request('password');
-      $password = Hash::make($password);
+      /*
+        Nothing below this point will execute unless the validation
+        in the RegistrationRequest.rules() passes
+      */
 
-      // Create and save the user
-      $user = User::create(compact('name', 'email', 'password'));
+      // Move to RegistrationRequest's persist function
+      // $name = request('name');
+      // $email = request('email');
+      // $password = request('password');
+      // $password = Hash::make($password);
+      //
+      // // Create and save the user
+      // $user = User::create(compact('name', 'email', 'password'));
+      //
+      // // Sign the user in
+      // auth()->login($user);
 
-      // Sign the user in
-      auth()->login($user);
+      $request->persist();
 
       // Send a welcome email
       /*
