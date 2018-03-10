@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class RegistrationController extends Controller
 {
     public function create() {
-      return view('registration.create');
+      if (auth()->check()) {
+        return redirect()->home();
+      } else {
+        return view('registration.create');
+      }
     }
 
     public function store() {
@@ -22,8 +27,13 @@ class RegistrationController extends Controller
         'password' => 'required|confirmed'
       ]);
 
+      $name = request('name');
+      $email = request('email');
+      $password = request('password');
+      $password = Hash::make($password);
+
       // Create and save the user
-      $user = User::create(request(['name', 'email', 'password']));
+      $user = User::create(compact('name', 'email', 'password'));
 
       // Sign the user in
       auth()->login($user);
@@ -48,7 +58,7 @@ class RegistrationController extends Controller
 
         Mail::to($user = App\User::first()->send(new App\Mail\WelcomeAgain($user)));
       */
-      \Mail::ti($user)->send(new \App\Mail\Welcome($user));
+      // \Mail::ti($user)->send(new \App\Mail\Welcome($user));
 
       // Redirect back to home page
       return redirect()->home();

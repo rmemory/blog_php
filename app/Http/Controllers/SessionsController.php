@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SessionsController extends Controller
 {
@@ -22,7 +23,13 @@ class SessionsController extends Controller
 
   public function store() {
     // Attempt to authenticate user
-    if (!auth()->attempt(request(['email', 'password']))) {
+    // dd(request(['email', 'password']));
+    $email = request('email');
+    $password = request('password');
+
+    $password = Hash::make($password);
+
+    if (!auth()->attempt(compact('email', 'password'))) {
       return back()->withErrors([
         'message' => 'Please check your credentials and try again'
       ]);
