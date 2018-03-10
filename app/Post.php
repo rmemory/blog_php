@@ -76,7 +76,9 @@ class Post extends Model {
     */
 
     // Shorter way using eloquent
-    $this->comments()->create(['body' => $body]);
+    // Note that create does not set the user_id, but save does.
+    $this->comments()->create(['body' => $body, 'user_id' => auth()->user()->id, 'post_id' => $this->id]);
+    // $this->comments()->save(Comment::create(['body' => $body, 'user_id' => auth()->user()->id], 'post_id' => $this->id));
   }
 
   public function scopeFilter($query, $filters) {

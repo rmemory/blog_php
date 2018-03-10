@@ -142,6 +142,13 @@ class PostsController extends Controller
       // Create a new post using the request data
       $post = new Post;
 
+      /*
+        could and should also do this:
+        auth()->user()->publish(
+          new Post(request('title', 'body'))
+        );
+      */
+
       $post->title = request('title');
       $post->body = request('body');
       $post->user_id = auth()->user()->id;

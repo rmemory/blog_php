@@ -10,8 +10,8 @@ class SessionsController extends Controller
 
   public function __construct() {
     /*
-      This means only non-logged in users (guests) will use the
-      functionality in this class.
+      The following means only non-logged in users (guests) will use the
+      functionality in this class, except the destroy method
     */
     $this->middleware('guest', ['except' => 'destroy']);
 
