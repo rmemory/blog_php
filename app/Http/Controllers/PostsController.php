@@ -219,6 +219,8 @@ class PostsController extends Controller
       // Save it to the Database
       $post->save();
 
+      session()->flash('message', 'Your post has now been published');
+
       // And then redirect to a web page, for example home page
       return redirect('/');
     }

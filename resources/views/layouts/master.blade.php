@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Blog Template for Bootstrap</title>
+    <title>Blog Example using Laravel and PHP</title>
 
     <!-- Bootstrap core CSS -->
     <!-- Latest compiled and minified CSS -->
@@ -25,11 +25,17 @@
   <body>
     @include ('layouts.nav')
 
+    @if ($flash = session('message'))
+    <div id="flash-message" class="alert alert-success" role="alert">
+      {{ $flash }}
+    </div>
+    @endif
+
     <div class="container">
 
       <div class="blog-header">
-        <h1 class="blog-title">The Bootstrap Blog</h1>
-        <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
+        <h1 class="blog-title">A blog example using Laravel and PHP</h1>
+        <p class="lead blog-description">An example of creating a blog using Laravel, PHP, and Bootstrap</p>
       </div>
 
       <div class="row">

@@ -50,6 +50,29 @@ class RegistrationController extends Controller
 
       $request->persist();
 
+      /*
+        The session manager maintains key-value pairs during the lifecycle
+        of the web browsing session by the user.
+      */
+      // session('message', "Default message");
+
+      /*
+        If the value is an array, it puts that value into the session.
+      */
+      // session(['message','Something custom']);
+
+      /*
+        This will be available for one page load */
+        session()->flash('message', 'Thanks for signing up');
+
+      /*
+        Now if I do this:
+
+        session('message', "Default message");
+
+        it will return 'Something custom' and not "Default message".
+      */
+
       // Send a welcome email
       /*
         First create the email class by running php artisan make:mail Welcome
