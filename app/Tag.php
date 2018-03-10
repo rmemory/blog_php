@@ -24,4 +24,12 @@ class Tag extends Model
         $post->tags->detach($tag);
       */
     }
+
+    public function getRouteKeyName() {
+      /* This allows the URL wildcard to be the string associated with the
+         name column in the tag database, such as myblog/posts/tags/personal
+         instead of myblog/posts/tags/1
+         */
+      return 'name';
+    }
 }

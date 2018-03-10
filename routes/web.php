@@ -425,6 +425,7 @@ Route for adding comments
 $php artisan make:controller CommentsController
 */
 Route::post('/posts/{post}/comments', 'CommentsController@store');
+Route::get('/posts/tags/{tag}', 'TagsController@index');
 
 Route::get('/register', 'RegistrationController@create');
 Route::post('/register', 'RegistrationController@store');

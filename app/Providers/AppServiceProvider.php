@@ -42,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
         // needing to be modified themselves to pull in the 'archives'.
         view()->composer('layouts.sidebar', function ($view) {
           $view->with('archives', \App\Post::archives());
+          $view->with('tags', \App\Tag::has('posts')->pluck('name'));
         });
     }
 
